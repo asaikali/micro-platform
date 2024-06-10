@@ -1,0 +1,31 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: upstream
+  contents:
+  - path: tailscale
+    http:
+      url: https://raw.githubusercontent.com/tailscale/tailscale/v1.66.4/cmd/k8s-operator/deploy/manifests/operator.yaml
+  - path: envoy-gateway
+    http:
+      url: https://github.com/envoyproxy/gateway/releases/download/v1.0.1/install.yaml
+  - path: cert-manager
+    http:
+      url: https://github.com/cert-manager/cert-manager/releases/download/v1.15.0/cert-manager.yaml
+  - path: rabbitmq
+    http:
+      url: https://github.com/rabbitmq/cluster-operator/releases/download/v2.9.0/cluster-operator.yml
+  - path: cloudnative-pg
+    http:
+      url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
+  - path: external-dns
+    git:
+      url: https://github.com/kubernetes-sigs/external-dns.git
+      ref: v0.14.2
+      shallowClone: true
+      depth: 1
+    includePaths:
+    - kustomize/**/*
+    excludePaths:
+    - LICENSE
+    newRootPath: kustomize

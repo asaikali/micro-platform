@@ -1,0 +1,21 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - http: {}
+    path: tailscale
+  - http: {}
+    path: envoy-gateway
+  - http: {}
+    path: cert-manager
+  - http: {}
+    path: rabbitmq
+  - http: {}
+    path: cloudnative-pg
+  - git:
+      commitTitle: 'Merge pull request #4476 from mloiseleur/fix/deps-upgrade...'
+      sha: e490412e6c44459524147febd140f4584d266fc5
+      tags:
+      - v0.14.2
+    path: external-dns
+  path: upstream
+kind: LockConfig

@@ -5,7 +5,7 @@ set -euo pipefail
 REPO_DIR=$(git rev-parse --show-toplevel)
 
 # Define the output file path
-OUTPUT_FILE="${REPO_DIR}/cluster/cert-manager/cert-manager.yaml"
+OUTPUT_FILE="${REPO_DIR}/cluster/cnpg-system/cnpg.yaml"
 
 # Combine namespace manifest and Helm templates into a single file
 {
@@ -14,13 +14,14 @@ OUTPUT_FILE="${REPO_DIR}/cluster/cert-manager/cert-manager.yaml"
 apiVersion: v1
 kind: Namespace
 metadata: 
-  name: cert-manager
+  name: cnpg-system
 EOF
 
-  helm template cert-manager jetstack/cert-manager \
-    --namespace cert-manager \
-    --version v1.15.0 \
-    --set crds.enabled=true
+helm template cnpg \
+  --namespace cnpg-system \
+  --create-namespace \
+  cloudnative-pg/cloudnative-pg
+
 } > "${OUTPUT_FILE}"
 
 echo "The complete manifest has been generated in ${OUTPUT_FILE}"
