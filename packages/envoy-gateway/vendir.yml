@@ -1,0 +1,12 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: chart
+  contents:
+  - path: .
+    helmChart:
+      name: gateway-helm
+      version: v1.0.1
+      repository:
+        url: oci://registry-1.docker.io/envoyproxy/gateway-helm
+        

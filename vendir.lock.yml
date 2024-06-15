@@ -18,4 +18,18 @@ directories:
       - v0.14.2
     path: external-dns
   path: upstream
+- contents:
+  - helmChart:
+      appVersion: v1.15.0
+      version: v1.15.0
+    path: cert-manager
+  - helmChart:
+      appVersion: v1.66.4
+      version: 1.66.4
+    path: tailscale
+  - helmChart:
+      appVersion: 2.6.1
+      version: 3.0.0
+    path: loki
+  path: charts
 kind: LockConfig

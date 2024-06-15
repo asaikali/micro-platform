@@ -1,0 +1,11 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: chart
+  contents:
+  - path: .
+    helmChart:
+      name: cert-manager
+      version: "v1.15.0"
+      repository:
+        url: https://charts.jetstack.io 
