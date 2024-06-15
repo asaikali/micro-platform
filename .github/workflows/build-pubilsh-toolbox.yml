@@ -1,12 +1,13 @@
 name: Build and Publish CLI Toolbox Docker Image
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - 'toolbox/Dockerfile'
-
+   
 jobs:
   build-and-publish:
     runs-on: ubuntu-24.04
