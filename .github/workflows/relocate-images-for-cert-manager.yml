@@ -1,0 +1,36 @@
+name: Extract, repackage and publish images for cert-manager
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'upstream/cert-manager'
+
+jobs:
+  relocate-images:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Setup Docker
+      uses: docker/setup-buildx-action@v2
+
+    # - name: Login to Source Registry
+    #   run:  echo "${{ secrets.SOURCE_REGISTRY_PASSWORD }}" | docker login ${{ secrets.SOURCE_REGISTRY_URL }} -u -u ${{ secrets.SOURCE_REGISTRY_USERNAME }} --password-stdin
+
+    - name: Login to GitHub Packages
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Set up Carvel tools
+      uses: carvel-dev/setup-action@v1
+      with:
+        tools: kbld,imgpkg
+
+    - name: Build and relocate images
+      run: |
+        kbld -f upstream/cert-manager/cert-manager.yaml --imgpkg-lock-output cluster/cert-manager/images.lock.yaml > cluster/cert-manager/cert-manager-output.yaml
+        imgpkg copy --lock cluster/cert-manager/images.lock.yaml --lock-output cluster/cert-manager/ghcr-images.lock.yaml --to-repo ghcr.io/nevenc/micro-platform
+
