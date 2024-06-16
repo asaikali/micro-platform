@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'upstream/cert-manager'
+    # paths:
+    #   - 'upstream/cert-manager'
 
 jobs:
   relocate-images:
